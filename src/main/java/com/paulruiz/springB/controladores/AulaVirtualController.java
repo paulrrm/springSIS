@@ -76,6 +76,21 @@ public class AulaVirtualController {
     public List<Usuario> getUsuario(){
         return usuarioRepository.findAll();
     }
+    @PostMapping("/usuario")
+    public Usuario postRol(@RequestBody Usuario usuario){
+        return usuarioRepository.save(usuario);
+    }
+    @DeleteMapping("/usuario/{id}")
+    public Usuario postUsuario(@PathVariable Integer id){
+        try {
+            Optional<Usuario> encontrado = usuarioRepository.findById(id);
+            usuarioRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+             return null;
+        }
+    }
 
 
 }
