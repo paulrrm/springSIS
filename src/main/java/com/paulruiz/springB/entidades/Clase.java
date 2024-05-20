@@ -30,8 +30,8 @@ public class Clase {
     @Column(name = "link", length = 255)
     private String link;
 
-    @Column(name = "visible")
-    private String visible;
+    @Column(name = "visible"  )
+    private Boolean visible;
 
     @ManyToOne
     @JoinColumn(name = "id_materia")
