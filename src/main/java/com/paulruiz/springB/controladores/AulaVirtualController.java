@@ -1,6 +1,7 @@
 package com.paulruiz.springB.controladores;
 
 
+import com.paulruiz.springB.entidades.Carrera;
 import com.paulruiz.springB.entidades.Clase;
 import com.paulruiz.springB.entidades.Rol;
 import com.paulruiz.springB.entidades.Usuario;
@@ -77,11 +78,11 @@ public class AulaVirtualController {
         return usuarioRepository.findAll();
     }
     @PostMapping("/usuario")
-    public Usuario postRol(@RequestBody Usuario usuario){
+    public Usuario postUsuario(@RequestBody Usuario usuario){
         return usuarioRepository.save(usuario);
     }
     @DeleteMapping("/usuario/{id}")
-    public Usuario postUsuario(@PathVariable Integer id){
+    public Usuario deleteUsuario(@PathVariable Integer id){
         try {
             Optional<Usuario> encontrado = usuarioRepository.findById(id);
             usuarioRepository.delete(encontrado.get());
@@ -92,23 +93,55 @@ public class AulaVirtualController {
         }
     }
     @PutMapping("/usuario")
-    public Usuario putUsuario(@RequestBody Usuario usuariol){
+    public Usuario putUsuario(@RequestBody Usuario usuario){
         try {
-            Optional<Usuario> encontrado = usuarioRepository.findById(usuariol.getIdUsuario());
+            Optional<Usuario> encontrado = usuarioRepository.findById(usuario.getIdUsuario());
             Usuario usuariolexistente = encontrado.get();
-            usuariolexistente.setCedula(usuariol.getCedula());
-            usuariolexistente.setClave(usuariol.getClave());
-            usuariolexistente.setCorreo(usuariol.getCorreo());
-            usuariolexistente.setDireccion(usuariol.getDireccion());
-            usuariolexistente.setNombre(usuariol.getNombre());
-            usuariolexistente.setRol(usuariol.getRol());
-            usuariolexistente.setTelefono(usuariol.getTelefono());
+            usuariolexistente.setCedula(usuario.getCedula());
+            usuariolexistente.setClave(usuario.getClave());
+            usuariolexistente.setCorreo(usuario.getCorreo());
+            usuariolexistente.setDireccion(usuario.getDireccion());
+            usuariolexistente.setNombre(usuario.getNombre());
+            usuariolexistente.setRol(usuario.getRol());
+            usuariolexistente.setTelefono(usuario.getTelefono());
             return usuarioRepository.save(usuariolexistente);
         }
         catch (Exception ex){
             return null;
         }
+    }/////////////////////////
+    @GetMapping("/carrera")
+    public List<Carrera> getCarrera(){
+        return carreraRepository.findAll();
     }
+    @PostMapping("/carrera")
+    public Carrera postCarrera(@RequestBody Carrera carrera){
+        return carreraRepository.save(carrera);
+    }
+    @DeleteMapping("/carrera/{id}")
+    public Carrera deleteCarrera(@PathVariable Integer id){
+        try {
+            Optional<Carrera> encontrado = carreraRepository.findById(id);
+            carreraRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+             return null;
+        }
+    }
+    
 
-
+    @PutMapping("/carrera")
+    public Carrera putCarrera(@RequestBody Carrera carrera){
+        try {
+            Optional<Carrera> encontrado = carreraRepository.findById(carrera.getIdCarrera());
+            Carrera carreraexistente = encontrado.get();
+            carreraexistente.setNombre(carrera.getNombre());
+            carreraexistente.setDescripcion(carrera.getDescripcion());
+            return carreraRepository.save(carreraexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
 }
