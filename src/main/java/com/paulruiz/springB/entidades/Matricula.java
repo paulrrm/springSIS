@@ -4,8 +4,10 @@ package com.paulruiz.springB.entidades;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
+
+
 
 @Data
 @Entity
@@ -19,6 +21,9 @@ public class Matricula {
     private Date fecha;
     @Column(name = "activo")
     private Boolean activo;
+    @Column(name = "hora")
+    private Time hora;
+
 
     @ManyToOne
     @JoinColumn(name = "id_periodo")

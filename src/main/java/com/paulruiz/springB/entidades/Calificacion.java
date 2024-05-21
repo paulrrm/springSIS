@@ -1,5 +1,8 @@
 package com.paulruiz.springB.entidades;
 
+import java.sql.Date;
+import java.sql.Time;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +22,10 @@ public class Calificacion {
     private Double nota;
     @Column(name = "Observacion", length = 500)
     private String observacion;
+    @Column(name = "Fecha", length = 500)
+    private Date fecha;
+    @Column(name = "Hora", length = 500)
+    private Time hora;
 
 
     @ManyToOne

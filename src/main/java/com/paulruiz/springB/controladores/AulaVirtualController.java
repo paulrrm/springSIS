@@ -1,10 +1,13 @@
 package com.paulruiz.springB.controladores;
 
 
+import com.paulruiz.springB.entidades.Calificacion;
 import com.paulruiz.springB.entidades.Carrera;
 import com.paulruiz.springB.entidades.Clase;
+import com.paulruiz.springB.entidades.Materia;
 import com.paulruiz.springB.entidades.Rol;
 import com.paulruiz.springB.entidades.Semestre;
+import com.paulruiz.springB.entidades.Tarea;
 import com.paulruiz.springB.entidades.Usuario;
 import com.paulruiz.springB.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,6 +180,156 @@ public class AulaVirtualController {
             semestreexistente.setDescripcion(semestre.getDescripcion());
             semestreexistente.setCarrera(semestre.getCarrera());
             return semestreRepository.save(semestreexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+    /////////////////////////
+    @GetMapping("/materia")
+    public List<Materia> getMateria(){
+        return materiaRepository.findAll();
+    }
+    @PostMapping("/materia")
+    public Materia postSemestre(@RequestBody Materia materia){
+        return materiaRepository.save(materia);
+    }
+    @DeleteMapping("/materia/{id}")
+    public Materia deleteMatera(@PathVariable Integer id){
+        try {
+            Optional<Materia> encontrado = materiaRepository.findById(id);
+            materiaRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+             return null;
+        }
+    }
+    
+
+    @PutMapping("/materia")
+    public Materia putMateria(@RequestBody Materia materia){
+        try {
+            Optional<Materia> encontrado = materiaRepository.findById(materia.getIdMateria());
+            Materia materiaexistente = encontrado.get();
+            materiaexistente.setNombre(materia.getNombre());
+            materiaexistente.setDescripcion(materia.getDescripcion());
+            
+            return materiaRepository.save(materiaexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+    /////////////////////////
+    @GetMapping("/clase")
+    public List<Clase> getClase(){
+        return claseRepository.findAll();
+    }
+    @PostMapping("/clase")
+    public Clase postClase(@RequestBody Clase clase){
+        return claseRepository.save(clase);
+    }
+    @DeleteMapping("/clase/{id}")
+    public Clase deletClase(@PathVariable Integer id){
+        try {
+            Optional<Clase> encontrado = claseRepository.findById(id);
+            claseRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+             return null;
+        }
+    }
+    
+
+    @PutMapping("/clase")
+    public Clase putClase(@RequestBody Clase clase){
+        try {
+            Optional<Clase> encontrado = claseRepository.findById(clase.getIdClase());
+            Clase claseexistente = encontrado.get();
+            claseexistente.setNombre(clase.getNombre());
+            claseexistente.setDescripcion(clase.getDescripcion());
+            claseexistente.setLink(clase.getLink());
+            claseexistente.setOrden(clase.getOrden());
+            claseexistente.setPdf(clase.getPdf());
+            claseexistente.setVideo(clase.getVideo());
+            claseexistente.setVisible(clase.getVisible());
+            return claseRepository.save(claseexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+    /////////////////////////
+    @GetMapping("/tarea")
+    public List<Tarea> getTarea(){
+        return tareaRepository.findAll();
+    }
+    @PostMapping("/tarea")
+    public Tarea postTarea(@RequestBody Tarea tarea){
+        return tareaRepository.save(tarea);
+    }
+    @DeleteMapping("/tarea/{id}")
+    public Tarea deletTarea(@PathVariable Integer id){
+        try {
+            Optional<Tarea> encontrado = tareaRepository.findById(id);
+            tareaRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+             return null;
+        }
+    }
+    
+
+    @PutMapping("/tarea")
+    public Tarea putTarea(@RequestBody Tarea tarea){
+        try {
+            Optional<Tarea> encontrado = tareaRepository.findById(tarea.getIdTarea());
+            Tarea tareaexistente = encontrado.get();
+            tareaexistente.setNombre(tarea.getNombre());
+            tareaexistente.setDescripcion(tarea.getDescripcion());
+            tareaexistente.setPonderacion(tarea.getPonderacion());
+            return tareaRepository.save(tareaexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+    /////////////////////////
+    @GetMapping("/calificacion")
+    public List<Calificacion> getCalificacion(){
+        return calificacionRepository.findAll();
+    }
+    @PostMapping("/calificacion")
+    public Calificacion postCalificacion(@RequestBody Calificacion calificacion){
+        return calificacionRepository.save(calificacion);
+    }
+    @DeleteMapping("/calificacion/{id}")
+    public Calificacion deletCalificacion(@PathVariable Integer id){
+        try {
+            Optional<Calificacion> encontrado = calificacionRepository.findById(id);
+            calificacionRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+             return null;
+        }
+    }
+    
+
+    @PutMapping("/calificacion")
+    public Calificacion putCalificacion(@RequestBody Calificacion calificacion){
+        try {
+            Optional<Calificacion> encontrado = calificacionRepository.findById(calificacion.getIdCalificacion());
+            Calificacion calificacionexistente = encontrado.get();
+            calificacionexistente.setNombrePdf(calificacion.getNombrePdf());
+            calificacionexistente.setDescripcion(calificacion.getDescripcion());
+            calificacionexistente.setNombrePdf(calificacion.getNombrePdf());
+            calificacionexistente.setNota(calificacion.getNota());
+            calificacionexistente.(calificacion.getNota());
+            return calificacionRepository.save(calificacionexistente);
         }
         catch (Exception ex){
             return null;
