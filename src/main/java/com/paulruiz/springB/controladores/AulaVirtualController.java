@@ -91,6 +91,24 @@ public class AulaVirtualController {
              return null;
         }
     }
+    @PutMapping("/usuario")
+    public Usuario putUsuario(@RequestBody Usuario usuariol){
+        try {
+            Optional<Usuario> encontrado = usuarioRepository.findById(usuariol.getIdUsuario());
+            Usuario usuariolexistente = encontrado.get();
+            usuariolexistente.setCedula(usuariol.getCedula());
+            usuariolexistente.setClave(usuariol.getClave());
+            usuariolexistente.setCorreo(usuariol.getCorreo());
+            usuariolexistente.setDireccion(usuariol.getDireccion());
+            usuariolexistente.setNombre(usuariol.getNombre());
+            usuariolexistente.setRol(usuariol.getRol());
+            usuariolexistente.setTelefono(usuariol.getTelefono());
+            return usuarioRepository.save(usuariolexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
 
 
 }

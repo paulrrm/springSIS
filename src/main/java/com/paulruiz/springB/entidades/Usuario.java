@@ -22,7 +22,7 @@ public class Usuario {
     @Column(name = "Correo",  length =255)
     private String correo;
 
-    @Column(name = "Cedula", length =15)
+    @Column(name = "Cedula", length =15 , unique = true)
     private String Cedula;
 
     @Column(name = "Telefono", length =30)
