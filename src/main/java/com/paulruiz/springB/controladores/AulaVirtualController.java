@@ -4,6 +4,7 @@ package com.paulruiz.springB.controladores;
 import com.paulruiz.springB.entidades.Carrera;
 import com.paulruiz.springB.entidades.Clase;
 import com.paulruiz.springB.entidades.Rol;
+import com.paulruiz.springB.entidades.Semestre;
 import com.paulruiz.springB.entidades.Usuario;
 import com.paulruiz.springB.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +110,8 @@ public class AulaVirtualController {
         catch (Exception ex){
             return null;
         }
-    }/////////////////////////
+    }
+    /////////////////////////
     @GetMapping("/carrera")
     public List<Carrera> getCarrera(){
         return carreraRepository.findAll();
@@ -139,6 +141,42 @@ public class AulaVirtualController {
             carreraexistente.setNombre(carrera.getNombre());
             carreraexistente.setDescripcion(carrera.getDescripcion());
             return carreraRepository.save(carreraexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+    /////////////////////////
+    @GetMapping("/semestre")
+    public List<Semestre> getSemestre(){
+        return semestreRepository.findAll();
+    }
+    @PostMapping("/semestre")
+    public Semestre postSemestre(@RequestBody Semestre semestre){
+        return semestreRepository.save(semestre);
+    }
+    @DeleteMapping("/semestre/{id}")
+    public Semestre deleteSemestre(@PathVariable Integer id){
+        try {
+            Optional<Semestre> encontrado = semestreRepository.findById(id);
+            semestreRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+             return null;
+        }
+    }
+    
+
+    @PutMapping("/semestre")
+    public Semestre putSemestre(@RequestBody Semestre semestre){
+        try {
+            Optional<Semestre> encontrado = semestreRepository.findById(semestre.getIdSemestre());
+            Semestre semestreexistente = encontrado.get();
+            semestreexistente.setNombre(semestre.getNombre());
+            semestreexistente.setDescripcion(semestre.getDescripcion());
+            semestreexistente.setCarrera(semestre.getCarrera());
+            return semestreRepository.save(semestreexistente);
         }
         catch (Exception ex){
             return null;
