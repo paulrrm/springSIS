@@ -1,14 +1,7 @@
 package com.paulruiz.springB.controladores;
 
 
-import com.paulruiz.springB.entidades.Calificacion;
-import com.paulruiz.springB.entidades.Carrera;
-import com.paulruiz.springB.entidades.Clase;
-import com.paulruiz.springB.entidades.Materia;
-import com.paulruiz.springB.entidades.Rol;
-import com.paulruiz.springB.entidades.Semestre;
-import com.paulruiz.springB.entidades.Tarea;
-import com.paulruiz.springB.entidades.Usuario;
+import com.paulruiz.springB.entidades.*;
 import com.paulruiz.springB.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -328,11 +321,86 @@ public class AulaVirtualController {
             calificacionexistente.setDescripcion(calificacion.getDescripcion());
             calificacionexistente.setNombrePdf(calificacion.getNombrePdf());
             calificacionexistente.setNota(calificacion.getNota());
-            calificacionexistente.(calificacion.getNota());
+            calificacionexistente.setFecha(calificacion.getFecha());
+            calificacionexistente.setHora(calificacion.getHora());
             return calificacionRepository.save(calificacionexistente);
         }
         catch (Exception ex){
             return null;
         }
     }
+    /////////////////////////
+    @GetMapping("/periodo")
+    public List<Periodo> getPeriodo(){
+        return periodoRepository.findAll();
+    }
+    @PostMapping("/periodo")
+    public Periodo postPeriodo(@RequestBody Periodo periodo){
+        return periodoRepository.save(periodo);
+    }
+    @DeleteMapping("/periodo/{id}")
+    public Periodo deletPeriodo(@PathVariable Integer id){
+        try {
+            Optional<Periodo> encontrado = periodoRepository.findById(id);
+            periodoRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+
+
+    @PutMapping("/periodo")
+    public Periodo putPeriodo(@RequestBody Periodo periodo){
+        try {
+            Optional<Periodo> encontrado = periodoRepository.findById(periodo.getIdPeriodo());
+            Periodo periodoexistente = encontrado.get();
+            periodoexistente.setNombre(periodo.getNombre());
+            periodoexistente.setDescripcion(periodo.getDescripcion());
+            periodoexistente.setDesde(periodo.getDesde());
+            periodoexistente.setHasta(periodo.getHasta());
+            return periodoRepository.save(periodoexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+
+    /////////////////////////
+    @GetMapping("/matricula")
+    public List<Matricula> getMatricula(){
+        return matriculaRepository.findAll();
+    }
+    @PostMapping("/matricula")
+    public Matricula postMatricula(@RequestBody Matricula matricula){
+        return matriculaRepository.save(matricula);
+    }
+    @DeleteMapping("/matricula/{id}")
+    public Matricula deletMatricula(@PathVariable Integer id){
+        try {
+            Optional<Matricula> encontrado = matriculaRepository.findById(id);
+            matriculaRepository.delete(encontrado.get());
+            return encontrado.get();
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+
+
+    @PutMapping("/matricula")
+    public Matricula putMatricula(@RequestBody Matricula matricula){
+        try {
+            Optional<Matricula> encontrado = matriculaRepository.findById(matricula.getIdMatricula());
+            Matricula matriculaexistente = encontrado.get();
+            matriculaexistente.setPeriodo(matricula.getPeriodo());
+            matriculaexistente.setActivo(matricula.getActivo());
+            return matriculaRepository.save(matriculaexistente);
+        }
+        catch (Exception ex){
+            return null;
+        }
+    }
+
 }
