@@ -74,6 +74,17 @@ public class AulaVirtualController {
     public List<Usuario> getUsuario(){
         return usuarioRepository.findAll();
     }
+    @GetMapping("/usuario/login/{correo}/{clave}")
+    public Usuario getUsuarioLogin(@PathVariable String correo, @PathVariable String clave){
+        List<Usuario> usuarios = usuarioRepository.findByCorreoAndClave(correo, clave);
+        Usuario usuarioEncontrado = null;
+        for (Usuario usuario : usuarios) {
+            if(usuario.getCorreo().equals(correo) && usuario.getClave().equals(clave)){
+                usuarioEncontrado = usuario;
+            }
+        }
+         return usuarioEncontrado;
+    }
     @PostMapping("/usuario")
     public Usuario postUsuario(@RequestBody Usuario usuario){
         return usuarioRepository.save(usuario);
