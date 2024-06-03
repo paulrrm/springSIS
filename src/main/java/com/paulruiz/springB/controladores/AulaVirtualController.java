@@ -383,6 +383,10 @@ public class AulaVirtualController {
     public List<Matricula> getMatricula(){
         return matriculaRepository.findAll();
     }
+    @GetMapping("/matricula/activo/{usuario}")
+    public List<Matricula> getMatriculaActivo(@PathVariable Integer usuario){
+        return matriculaRepository.findByActivoAndUsuario(true, usuario );
+    }
     @PostMapping("/matricula")
     public Matricula postMatricula(@RequestBody Matricula matricula){
         return matriculaRepository.save(matricula);
