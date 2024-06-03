@@ -36,5 +36,8 @@ public class Calificacion {
     @JoinColumn(name = "id_matricula")
     private Matricula matricula;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tarea")
+    private Tarea tarea;
 
 }
