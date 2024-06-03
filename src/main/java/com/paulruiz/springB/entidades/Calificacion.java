@@ -39,9 +39,4 @@ public class Calificacion {
     @ManyToOne
     @JoinColumn(name = "id_tarea")
     private Tarea tarea;
-
-    @ManyToOne
-    @JoinColumn(name = "id_tarea")
-    private Tarea tarea;
-
 }
