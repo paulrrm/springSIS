@@ -6,25 +6,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
 @SpringBootApplication
 public class SpringBApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBApplication.class, args);
 	}
-
-    
-    @Bean
+	@Bean
     public WebMvcConfigurer corsConfigurer() {
-    return new WebMvcConfigurer() {
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/avirtual/**")
-                    .allowedOrigins("http://localhost:4200")
-                    .allowedMethods("GET", "POST", "PUT", "DELETE");
-        }
-    };
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedMethods("GET","POST","PUT","DELETE").allowedHeaders("*").allowedOrigins("*");
+            }
+        };
     }
 }
 
