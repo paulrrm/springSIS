@@ -3,7 +3,10 @@ package com.paulruiz.springB.controladores;
 
 import com.paulruiz.springB.entidades.*;
 import com.paulruiz.springB.repositorios.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +36,9 @@ public class AulaVirtualController {
     TareaRepository tareaRepository;
     @Autowired
     UsuarioRepository usuarioRepository;
+    @Autowired
 
+    
     @GetMapping("/rol")
     public List<Rol> getRol(){
         return rolRepository.findAll();
@@ -70,6 +75,7 @@ public class AulaVirtualController {
     }
 
     ////////////////
+
     @GetMapping("/usuario")
     public List<Usuario> getUsuario(){
         return usuarioRepository.findAll();
@@ -85,8 +91,30 @@ public class AulaVirtualController {
         }
          return usuarioEncontrado;
     }
+
+    @GetMapping("/usuario/registro/{cedula}")
+    public ResponseEntity<Usuario> getUsuarioPorCedula(@PathVariable String cedula) {
+        Optional<Usuario> usuarioExistente = usuarioRepository.findByCedula(cedula);
+        if (usuarioExistente.isPresent()) {
+            return ResponseEntity.ok(usuarioExistente.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/usuario/correo/{correo}")
+    public ResponseEntity<Usuario> getUsuarioPorCorreo(@PathVariable String correo) {
+        Optional<Usuario> correoExistente = usuarioRepository.findBycorreo(correo);
+        if (correoExistente.isPresent()) {
+            return ResponseEntity.ok(correoExistente.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @PostMapping("/usuario")
     public Usuario postUsuario(@RequestBody Usuario usuario){
+        System.out.println("Usuario recibido: " + usuario.toString());
         return usuarioRepository.save(usuario);
     }
     @DeleteMapping("/usuario/{id}")
@@ -100,6 +128,8 @@ public class AulaVirtualController {
              return null;
         }
     }
+
+
     @PutMapping("/usuario")
     public Usuario putUsuario(@RequestBody Usuario usuario){
         try {
@@ -118,6 +148,7 @@ public class AulaVirtualController {
             return null;
         }
     }
+
     /////////////////////////
     @GetMapping("/carrera")
     public List<Carrera> getCarrera(){
@@ -138,7 +169,6 @@ public class AulaVirtualController {
              return null;
         }
     }
-    
 
     @PutMapping("/carrera")
     public Carrera putCarrera(@RequestBody Carrera carrera){
@@ -153,6 +183,7 @@ public class AulaVirtualController {
             return null;
         }
     }
+
     /////////////////////////
     @GetMapping("/semestre")
     public List<Semestre> getSemestre(){
@@ -173,7 +204,6 @@ public class AulaVirtualController {
              return null;
         }
     }
-    
 
     @PutMapping("/semestre")
     public Semestre putSemestre(@RequestBody Semestre semestre){
@@ -189,15 +219,27 @@ public class AulaVirtualController {
             return null;
         }
     }
+
+
+
     /////////////////////////
     @GetMapping("/materia")
     public List<Materia> getMateria(){
         return materiaRepository.findAll();
     }
+
+    @GetMapping("/materia/{id}")
+    public List<Materia> obtenerMateriasPorSemestre(@PathVariable Integer id) {
+        return semestreRepository.findById(id)
+                .map(semestre -> materiaRepository.findBySemestre(semestre))
+                .orElseThrow(() -> new RuntimeException("Semestre no encontrado"));
+    }
+
     @PostMapping("/materia")
     public Materia postSemestre(@RequestBody Materia materia){
         return materiaRepository.save(materia);
     }
+
     @DeleteMapping("/materia/{id}")
     public Materia deleteMatera(@PathVariable Integer id){
         try {
@@ -209,7 +251,6 @@ public class AulaVirtualController {
              return null;
         }
     }
-    
 
     @PutMapping("/materia")
     public Materia putMateria(@RequestBody Materia materia){
@@ -225,6 +266,8 @@ public class AulaVirtualController {
             return null;
         }
     }
+
+
     /////////////////////////
     @GetMapping("/clase")
     public List<Clase> getClase(){
