@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -272,6 +273,16 @@ public class AulaVirtualController {
     @GetMapping("/clase")
     public List<Clase> getClase(){
         return claseRepository.findAll();
+    }
+
+    @PostMapping("/clase/materia")
+    public List<Clase> getClasesMateria(@RequestBody Materia materia ){
+        List<Clase> resultado = new ArrayList<>();
+        resultado = claseRepository.findAllByMateria(materia);
+
+
+        return resultado;
+
     }
     @PostMapping("/clase")
     public Clase postClase(@RequestBody Clase clase){
