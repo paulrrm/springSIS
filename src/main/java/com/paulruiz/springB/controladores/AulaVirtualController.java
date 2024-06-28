@@ -339,6 +339,15 @@ public class AulaVirtualController {
              return null;
         }
     }
+    @PostMapping("/tarea/materia")
+    public List<Tarea> getTareaMateria(@RequestBody Materia materia ){
+        List<Tarea> resultado = new ArrayList<>();
+        resultado = tareaRepository.findAllByMateria(materia);
+
+
+        return resultado;
+
+    }
     
 
     @PutMapping("/tarea")
