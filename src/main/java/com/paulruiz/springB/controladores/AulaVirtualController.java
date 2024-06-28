@@ -313,6 +313,8 @@ public class AulaVirtualController {
     public List<Tarea> getTarea(){
         return tareaRepository.findAll();
     }
+    
+    
     @PostMapping("/tarea")
     public Tarea postTarea(@RequestBody Tarea tarea){
         return tareaRepository.save(tarea);

@@ -1,5 +1,6 @@
 package com.paulruiz.springB.repositorios;
 
+import com.paulruiz.springB.entidades.Materia;
 import com.paulruiz.springB.entidades.Matricula;
 import com.paulruiz.springB.entidades.Usuario;
 
