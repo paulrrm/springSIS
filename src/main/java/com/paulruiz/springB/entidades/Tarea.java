@@ -21,7 +21,6 @@ public class Tarea {
     @Column(name = "ponderacion")
     private Integer ponderacion;
 
-
     @ManyToOne
     @JoinColumn(name = "id_materia")
     private Materia materia;

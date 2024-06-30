@@ -279,8 +279,6 @@ public class AulaVirtualController {
     public List<Clase> getClasesMateria(@RequestBody Materia materia ){
         List<Clase> resultado = new ArrayList<>();
         resultado = claseRepository.findAllByMateria(materia);
-
-
         return resultado;
 
     }
@@ -324,6 +322,8 @@ public class AulaVirtualController {
     public List<Tarea> getTarea(){
         return tareaRepository.findAll();
     }
+    
+    
     @PostMapping("/tarea")
     public Tarea postTarea(@RequestBody Tarea tarea){
         return tareaRepository.save(tarea);
