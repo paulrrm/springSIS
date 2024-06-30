@@ -40,6 +40,10 @@ public class AulaVirtualController {
     @Autowired
 
     
+    @GetMapping("/holamundo")
+    public String holamundo(){
+        return "hola esto es una prueba del cambio";
+    }
     @GetMapping("/rol")
     public List<Rol> getRol(){
         return rolRepository.findAll();
