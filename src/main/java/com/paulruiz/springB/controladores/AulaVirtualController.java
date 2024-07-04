@@ -87,6 +87,7 @@ public class AulaVirtualController {
     }
     @GetMapping("/usuario/login/{correo}/{clave}")
     public Usuario getUsuarioLogin(@PathVariable String correo, @PathVariable String clave){
+        
         List<Usuario> usuarios = usuarioRepository.findByCorreoAndClave(correo, clave);
         Usuario usuarioEncontrado = null;
         for (Usuario usuario : usuarios) {
